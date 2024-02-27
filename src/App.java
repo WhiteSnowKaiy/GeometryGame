@@ -14,21 +14,28 @@ public class App extends JFrame {
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        circle = new circle(250, 250, 100);
-
-        timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                circle.update();
-                repaint();
-            }
-        });
-
         JButton startButton = new JButton("Draw circle");
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Ask the user for center and radius
+                int center = Integer.parseInt(JOptionPane.showInputDialog("Enter X coordinate for center:"));
+                int radius = Integer.parseInt(JOptionPane.showInputDialog("Enter the radius:"));
+
+                circle = new circle(center, center, radius);
+
+                // Start the timer after getting user input
                 timer.start();
+            }
+        });
+
+        timer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (circle != null) {
+                    circle.update();
+                    repaint();
+                }
             }
         });
 
@@ -42,7 +49,9 @@ public class App extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        circle.draw(g2d);
+        if (circle != null) {
+            circle.draw(g2d);
+        }
     }
 
     public static void main(String[] args) {
