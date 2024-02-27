@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import models.circle;
 
@@ -19,8 +20,9 @@ public class App extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Ask the user for center and radius
-                int center = Integer.parseInt(JOptionPane.showInputDialog("Enter X coordinate for center:"));
-                int radius = Integer.parseInt(JOptionPane.showInputDialog("Enter the radius:"));
+                ArrayList<Integer> info = askForInfo();
+                int center = info.get(0);
+                int radius = info.get(1);
 
                 circle = new circle(center, center, radius);
 
@@ -29,7 +31,7 @@ public class App extends JFrame {
             }
         });
 
-        timer = new Timer(10, new ActionListener() {
+        timer = new Timer(1, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (circle != null) {
@@ -47,7 +49,6 @@ public class App extends JFrame {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         if (circle != null) {
             circle.draw(g2d);
@@ -61,5 +62,25 @@ public class App extends JFrame {
                 new App().setVisible(true);
             }
         });
+    }
+
+    ArrayList<Integer> askForInfo() {
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        while (true) {
+            int center = Integer.parseInt(JOptionPane.showInputDialog("Enter positive X coordinate for center:"));
+            int radius = Integer.parseInt(JOptionPane.showInputDialog("Enter positive radius:"));
+    
+            if (center > 0 && radius > 0) {
+                result.add(center);
+                result.add(radius);
+                break; // Exit the loop if positive values are entered
+            } else {
+                // Show an error message for non-positive values
+                JOptionPane.showMessageDialog(null, "Please enter positive values for center and radius.");
+            }
+        }
+    
+        return result;
     }
 }

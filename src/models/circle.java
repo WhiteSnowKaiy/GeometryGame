@@ -31,6 +31,6 @@ public class circle {
     public void draw(Graphics2D g2d) {
         Point point = getPoint();
         g2d.setColor(Color.BLACK);
-        g2d.drawLine(point.x - 1, point.y - 1, point.x, point.y);
+        g2d.drawLine(point.x, point.y - 1, point.x, point.y);
     }
 }
