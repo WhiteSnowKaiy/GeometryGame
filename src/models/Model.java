@@ -1,17 +1,33 @@
 package models;
 
 public class Model {
-    private int xAxis;
-    private int yAxis;
-    private float yaw;
+    
+    private float xAxis;
+    private float yAxis;
+    private int yaw;
+    private String name;
 
     // Getters and setters
-    public int getxAxis() { return xAxis; }
-    public void setxAxis(int xAxis) { this.xAxis = xAxis; }
-    public int getyAxis() { return yAxis; }
-    public void setyAxis(int yAxis) { this.yAxis = yAxis; }
-    public float getYaw() { return yaw; }
-    public void setYaw(float yaw) { this.yaw = yaw; }
+    public float getxAxis() { return xAxis; }
+    public void setxAxis(float xAxis) { this.xAxis = xAxis; }
+    public float getyAxis() { return yAxis; }
+    public void setyAxis(float yAxis) { this.yAxis = yAxis; }
+    public int getYaw() { return yaw; }
+    public void setYaw(int yaw) { this.yaw = yaw; }
+    public String getName() { return this.name; }
+    public void setName(String name){ this.name = name; }
 
+
+    public boolean checkNegativeValue(float value){
+        if (value < 0){
+            return true;
+        }
+        return false;
+    }
     
+    public void printInfo(){
+        System.out.println("Size of X: " + getxAxis());
+        System.out.println("Size of Y: " + getyAxis());
+        System.out.println("Size of Yaw: " + getYaw());
+    }
 }
